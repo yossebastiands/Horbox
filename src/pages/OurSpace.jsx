@@ -11,6 +11,7 @@ export default function OurSpace() {
           <li>Likes to play games with genre of shooting, sci-fi, or actions</li>
           <li>Loves to learn how the world works</li>
           <li>Suka banget dipanggil "Ocin" sama Salma</li>
+          <li>Sejujurnya.. Sering overthinking</li>
         </ul>
       </section>
 
