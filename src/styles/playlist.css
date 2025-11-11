@@ -1,0 +1,215 @@
+/* ============================
+   PLAYLIST — Glass UI (v2)
+   ============================ */
+
+/* Card wrapper */
+.playlist-card {
+  background: var(--glass, rgba(15,17,21,.78));
+  border: 1px solid var(--glass-border, rgba(255,255,255,.18));
+  border-radius: var(--radius, 22px);
+  box-shadow: var(--shadow, 0 12px 28px rgba(0,0,0,.45), 0 6px 18px rgba(255,182,217,.15));
+  color: var(--text, #fff);
+  padding: 16px;
+  min-width: 0; /* prevent grid overflow */
+}
+
+/* Normalize inner spacing */
+.playlist-card h2,
+.playlist-card h3,
+.playlist-card h4,
+.playlist-card p { margin: 0 0 10px; }
+.playlist-card .card-sub { margin-top: 12px; }
+
+/* Header */
+.playlist-card .playlist-header {
+  display: flex; justify-content: space-between; align-items: start;
+  gap: 12px; margin-bottom: 8px;
+}
+.playlist-card .pl-title {
+  margin: 0; font-size: 1.1rem; font-weight: 800;
+  color: var(--brand, #ffb6d9);
+}
+
+/* Wrap overly-long titles/descriptions */
+.playlist-card .pl-title,
+.playlist-card .header-text p {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Search (generic) */
+.song-search { margin: 10px 0; }
+.search-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border, rgba(255,255,255,.18));
+  background: rgba(255,255,255,.06);
+  color: var(--text, #fff);
+}
+
+/* ============================
+   Main layout: Add form ABOVE player
+   ============================ */
+.playlist-main {
+  display: flex;
+  flex-direction: column;     /* stack vertically */
+  gap: 14px;
+  min-width: 0;
+}
+
+/* Without changing JSX order, push the add-song panel above the player */
+.add-song-panel { order: -1; }
+
+/* Player / Now Playing */
+.yt-iframe {
+  width: 100%;
+  min-height: 320px;
+  background: rgba(0,0,0,.35);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.np-meta { margin-top: 8px; }
+.np-title {
+  font-weight: 700; font-size: 1rem; margin-bottom: 2px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.np-line.small {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.np-actions { margin-top: 10px; }
+.np-actions .btn.next { background: var(--brand, #ffb6d9); color: #111; border: none; }
+
+/* ============================
+   Forms (create playlist / add song)
+   ============================ */
+.playlist-form,
+.add-song { display: grid; gap: 10px; }
+
+.playlist-form .field,
+.add-song .field { display: grid; gap: 6px; }
+
+.playlist-form input,
+.playlist-form textarea,
+.add-song input,
+.add-song select {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border, rgba(255,255,255,.18));
+  background: rgba(255,255,255,.06);
+  color: var(--text, #fff);
+}
+/* Fix dropdown text & menu contrast */
+.add-song select,
+.playlist-form select {
+  color: var(--text, #fff);
+  background-color: rgba(15,17,21,.9);
+}
+
+/* Optional: customize the dropdown list itself */
+.add-song select option,
+.playlist-form select option {
+  color: #fff;
+  background-color: #1b1f28; /* darker dropdown background */
+}
+
+.add-song h4 { margin: 0 0 4px; }
+
+/* Collapsible Add Song panel */
+.add-song-panel {
+  border: 1px solid var(--glass-border, rgba(255,255,255,.18));
+  background: rgba(255,255,255,.04);
+  border-radius: 12px;
+  padding: 0;
+}
+.add-song-panel > summary {
+  list-style: none; cursor: pointer; user-select: none;
+  padding: 10px 12px; border-radius: 12px; margin: 0;
+  background: rgba(255,255,255,.06);
+  border: 1px solid var(--glass-border, rgba(255,255,255,.18));
+}
+.add-song-panel > summary::-webkit-details-marker { display: none; }
+.add-song-panel[open] > summary { margin-bottom: 10px; }
+.add-song { padding: 0 12px 12px; }
+
+/* ============================
+   Playlist chooser (when none selected)
+   ============================ */
+.chooser-list { display: grid; gap: 8px; margin-top: 8px; }
+.row-btn {
+  text-align: left; cursor: pointer; color: inherit;
+  background: rgba(255,255,255,.06);
+  border: 1px solid var(--glass-border, rgba(255,255,255,.14));
+  border-radius: 12px; padding: 10px 12px;
+}
+.row-btn:hover { background: rgba(255,255,255,.1); }
+.row-title { font-weight: 700; }
+.row-meta  { font-size: .85rem; opacity: .75; }
+.playlist-card details.create-inline summary {
+  cursor: pointer; color: var(--brand, #ffb6d9); margin-top: 10px;
+}
+
+/* ============================
+   Song list (message gets its own roomy row)
+   ============================ */
+.song-list { margin-top: 12px; }
+.song-list h4 { margin-bottom: 8px; }
+.song-list ul {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 8px;
+}
+
+/* 3-row grid: title | message | meta(by+time) */
+.song-list li.song {
+  display: grid;
+  grid-template-columns: 1fr auto;        /* title/msg | time on meta row */
+  grid-template-areas:
+    "title  title"
+    "msg    msg"
+    "by     time";
+  gap: 6px 10px;
+  align-items: center;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid var(--glass-border, rgba(255,255,255,.12));
+}
+
+.song-list li.song.active {
+  background: rgba(255,182,217,.22);
+  border-color: rgba(255,182,217,.5);
+}
+
+/* Title (row 1) */
+.song-title {
+  grid-area: title;
+  border: none; background: none; color: inherit; cursor: pointer;
+  font-weight: 700; text-align: left;
+  min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.song-title:focus-visible {
+  outline: 2px solid var(--brand, #ffb6d9);
+  outline-offset: 2px; border-radius: 6px;
+}
+
+/* Message (row 2) — spacious, wraps long strings */
+.song-list .msg {
+  grid-area: msg;
+  margin-top: 4px;
+  line-height: 1.5;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  color: var(--brand-2, #ffd7ea);
+  opacity: .95;
+}
+
+/* Meta row (row 3): by (left) and time (right) */
+.song-list .by   { grid-area: by;   opacity: .9; font-size: .92rem; }
+.song-list .time { grid-area: time; opacity: .75; font-size: .85rem; white-space: nowrap; }
+
+@media (max-width: 720px) {
+  /* Keep the same areas; they already stack nicely on small screens */
+  .song-list li.song { padding: 10px; }
+}

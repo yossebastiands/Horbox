@@ -1,0 +1,141 @@
+/* HOME PAGE — Message Board + Playlist Layout */
+
+
+.page.grid-2 {
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  max-width: 1180px;
+  margin: 8vh auto;
+  padding: 0 22px 50px;
+}
+
+
+@media (max-width: 980px) {
+  .page.grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Playlist placeholder */
+.card.stretch {
+  min-height: 420px;
+}
+
+/* Composer form */
+.composer-form {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  column-gap: 14px;
+  row-gap: 12px;
+  margin-top: 12px;
+}
+
+.composer-form .field {
+  display: contents;
+}
+.composer-form .field > span {
+  align-self: center;
+  color: var(--muted);
+}
+
+.composer-form select,
+.composer-form textarea {
+  width: 100%;
+  font: inherit;
+  color: var(--text);
+  background: #11151d;
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+.composer-form textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+.composer-form .hint {
+  grid-column: 2/-1;
+  text-align: right;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.actions {
+  grid-column: 2/-1;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+/* Feed styling */
+.feed {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 320px;
+  overflow: auto;
+  padding-right: 6px;
+  list-style: none;
+}
+
+/* Message bubble */
+.msg {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 10px 14px;
+  backdrop-filter: blur(4px);
+  transition: 0.2s ease;
+}
+.msg:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.meta {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+.meta .author {
+  color: var(--brand);
+  font-weight: 700;
+}
+.meta .dot {
+  opacity: 0.6;
+}
+
+.text {
+  margin: 0;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.msg.ocin {
+  border-color: rgba(255, 182, 217, 0.3);
+}
+.msg.salma {
+  border-color: rgba(255, 215, 234, 0.3);
+}
+
+.empty {
+  background: transparent;
+  border: 1px dashed var(--glass-border);
+  color: var(--muted);
+  text-align: center;
+  padding: 14px;
+  border-radius: 12px;
+}
+
+.feed::-webkit-scrollbar {
+  width: 10px;
+}
+.feed::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}

@@ -1,0 +1,62 @@
+/* GATE (Password Page) */
+
+.gate {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(14px) brightness(0.7);
+  z-index: 30;
+}
+
+.gate .card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 30px 28px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.gate h2 {
+  font-weight: 800;
+  font-size: 1.6rem;
+  margin-bottom: 18px;
+  color: var(--text);
+}
+
+.gate input[type="password"] {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.gate .btn {
+  margin-top: 16px;
+  width: 100%;
+  border-radius: 14px;
+  padding: 10px 0;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: #231a21;
+  border: none;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+.gate .btn:hover {
+  transform: translateY(-1px);
+}
+
+.gate .hint {
+  font-size: 0.85rem;
+  margin-top: 12px;
+  color: var(--muted);
+}
