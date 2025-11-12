@@ -7,7 +7,6 @@ import Gate from "./pages/Gate.jsx";
 import Rest from "./pages/Rest.jsx";
 import BackgroundVideo from "./components/BackgroundVideo.jsx";
 
-
 /* -------------------------------
    Track login/unlock state
 --------------------------------*/
