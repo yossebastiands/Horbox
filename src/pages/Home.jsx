@@ -41,6 +41,12 @@ function YTPlayer({ videoId, onEnded, onTitle }) {
   const containerRef = useRef(null);
   const playerRef = useRef(null);
 
+  // hold latest callbacks
+  const onEndedRef = useRef(onEnded);
+  const onTitleRef = useRef(onTitle);
+  useEffect(() => { onEndedRef.current = onEnded; }, [onEnded]);
+  useEffect(() => { onTitleRef.current = onTitle; }, [onTitle]);
+
   useEffect(() => {
     let cancelled = false;
 
@@ -50,29 +56,23 @@ function YTPlayer({ videoId, onEnded, onTitle }) {
         width: "100%",
         height: "360",
         videoId,
-        playerVars: {
-          autoplay: 1,
-          rel: 0,
-          controls: 1,
-          modestbranding: 1,
-          playsinline: 1,
-        },
+        playerVars: { autoplay: 1, rel: 0, controls: 1, modestbranding: 1, playsinline: 1 },
         events: {
           onReady: () => {
             try {
               const data = playerRef.current?.getVideoData?.();
-              if (data?.title) onTitle?.(data.title, data.author);
+              if (data?.title) onTitleRef.current?.(data.title, data.author);
             } catch {}
           },
           onStateChange: (e) => {
-            // 1 = PLAYING; grab title again (covers when videoId changes)
-            if (e.data === window.YT.PlayerState.PLAYING) {
+            const PS = window.YT.PlayerState;
+            if (e.data === PS.PLAYING) {
               try {
                 const data = playerRef.current?.getVideoData?.();
-                if (data?.title) onTitle?.(data.title, data.author);
+                if (data?.title) onTitleRef.current?.(data.title, data.author);
               } catch {}
             }
-            if (e.data === window.YT.PlayerState.ENDED) onEnded?.();
+            if (e.data === PS.ENDED) onEndedRef.current?.();
           },
         },
       });
@@ -83,32 +83,26 @@ function YTPlayer({ videoId, onEnded, onTitle }) {
       tag.src = "https://www.youtube.com/iframe_api";
       document.body.appendChild(tag);
       const prev = window.onYouTubeIframeAPIReady;
-      window.onYouTubeIframeAPIReady = () => {
-        prev?.();
-        create();
-      };
+      window.onYouTubeIframeAPIReady = () => { prev?.(); create(); };
     } else {
       create();
     }
 
     return () => {
       cancelled = true;
-      try {
-        playerRef.current?.destroy?.();
-      } catch {}
+      try { playerRef.current?.destroy?.(); } catch {}
     };
   }, []);
 
   useEffect(() => {
     if (playerRef.current && videoId) {
-      try {
-        playerRef.current.loadVideoById(videoId);
-      } catch {}
+      try { playerRef.current.loadVideoById(videoId); } catch {}
     }
   }, [videoId]);
 
   return <div ref={containerRef} className="yt-iframe" />;
 }
+
 
 /* -------------------------------
    Playlist Panel (left column)
@@ -270,10 +264,19 @@ async function handleAddSong(e) {
   }
 }
 
-  function nextTrack() {
-    const nextI = index + 1;
-    if (nextI < filteredSongs.length) setIndex(nextI);
-  }
+// keep length in a ref so the callback can read the latest length
+const listLenRef = useRef(0);
+useEffect(() => { listLenRef.current = filteredSongs.length; }, [filteredSongs.length]);
+
+function nextTrack() {
+  setIndex((i) => (i + 1 < listLenRef.current ? i + 1 : i));
+}
+
+// if filtering changes and current index is out of range, reset safely
+useEffect(() => {
+  if (index >= filteredSongs.length) setIndex(0);
+}, [filteredSongs.length, index]);
+
 
   return (
     <section className="card stretch playlist-card">
