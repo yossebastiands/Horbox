@@ -7,6 +7,9 @@ export default function Gate() {
   const [pwd, setPwd] = useState("");
   const navigate = useNavigate();
 
+  // Load password from environment variable
+  const REAL_PASSWORD = import.meta.env.VITE_GATE_PWD;
+
   useEffect(() => {
     if (sessionStorage.getItem("horbox_unlocked") === "1") {
       navigate("/home", { replace: true });
@@ -15,7 +18,16 @@ export default function Gate() {
 
   function unlock(e) {
     e.preventDefault();
-    if (pwd.trim() === "1") {
+
+    // Safety check: if env variable missing
+    if (!REAL_PASSWORD) {
+      alert("Configuration error: Password not set.");
+      console.error("VITE_GATE_PWD is missing!");
+      return;
+    }
+
+    // Compare to env password
+    if (pwd.trim() === REAL_PASSWORD.trim()) {
       sessionStorage.setItem("horbox_unlocked", "1");
       window.dispatchEvent(new Event("horbox:auth-change"));
       navigate("/home", { replace: true });
