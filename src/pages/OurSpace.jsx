@@ -9,9 +9,11 @@ export default function OurSpace() {
         <h3 className="card-title">About Ocin</h3>
         <ul className="bullets">
           <li>Likes to play games with genre of shooting, sci-fi, or actions</li>
-          <li>Loves to learn how the world works</li>
           <li>Suka banget dipanggil "Ocin" sama Salma</li>
           <li>Sejujurnya.. Sering overthinking</li>
+          <li>Suka dunia kendaraan terutama di Mobil dan Pesawat</li>
+          <li>Suka mempelajari perkembangan teknologi</li>
+          <li>Suka mempelajari cara alam semesta bekerja</li>
         </ul>
       </section>
 
