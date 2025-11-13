@@ -15,9 +15,8 @@ export default function Gate() {
 
   function unlock(e) {
     e.preventDefault();
-    if (pwd.trim() === "1") { // or import.meta.env.VITE_GATE_PWD
+    if (pwd.trim() === "1") {
       sessionStorage.setItem("horbox_unlocked", "1");
-      // tell App.jsx to re-check unlocked state immediately
       window.dispatchEvent(new Event("horbox:auth-change"));
       navigate("/home", { replace: true });
     } else {

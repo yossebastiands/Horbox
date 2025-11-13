@@ -1,19 +1,16 @@
 :root {
-  /* Theme */
   --bg:#0f1115;
   --text:#fff;
   --muted:#cfd6e4;
   --accent:#ffb6d9;
   --accent-2:#ffd7ea;
 
-  /* Glass + borders + shadows */
   --glass-bg: rgba(16,18,24,.55);
   --glass-grad: radial-gradient(120% 140% at 10% 10%, rgba(255,255,255,.12) 0%, rgba(255,255,255,0) 55%) ;
   --glass-border: rgba(255,255,255,.14);
   --glass-inner: inset 0 1px 0 rgba(255,255,255,.10), inset 0 -1px 0 rgba(0,0,0,.22);
   --glow: 0 12px 28px rgba(0,0,0,.45), 0 8px 24px rgba(255,182,217,.12);
 
-  /* Player sizes */
   --player-pad: 12px;
   --player-radius: 18px;
   --seek-width: 320px;
@@ -30,7 +27,6 @@ body {
   background: var(--bg) url("/BG01.jpg") center/cover no-repeat fixed;
 }
 
-/* ---------- Top Nav ---------- */
 .nav {
   display:flex; align-items:center; justify-content:space-between;
   padding: 14px 28px;
@@ -44,7 +40,6 @@ body {
 .links a.active, .links a:hover { color: var(--accent); opacity:1 }
 .logout { background: var(--accent); border:0; border-radius:10px; padding:8px 14px; color:#111; font-weight:700; }
 
-/* ---------- Legacy audio fab (if used) ---------- */
 .audio-fab{
   position: fixed; right: 16px; bottom: 16px;
   display: flex; align-items: center; gap: 10px;
@@ -68,7 +63,7 @@ body {
 }
 
 /* =========================================================
-   ELEGANT GLASS MINI MUSIC PLAYER
+   MUSIC PLAYER
    ========================================================= */
 .mini-player{
   position: fixed;
