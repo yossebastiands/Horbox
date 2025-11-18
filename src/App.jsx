@@ -6,6 +6,7 @@ import FirstAid from "./pages/FirstAid.jsx";
 import Rest from "./pages/Rest.jsx";
 import Gate from "./pages/Gate.jsx";
 import OurAssets from "./pages/OurAssets.jsx"; // new page
+import OurGallery from "./pages/OurGallery.jsx";
 import BackgroundVideo from "./components/BackgroundVideo.jsx";
 
 /* -------------------------------
@@ -80,6 +81,9 @@ export default function App() {
             <Link to="/rest" className="btn">
               Rest
             </Link>
+            <Link to="/our-gallery" className="btn soft">
+              Our Gallery
+            </Link>
             <button
               className="btn pill"
               onClick={() => {
@@ -138,6 +142,14 @@ export default function App() {
             element={
               <RequireAuth>
                 <Rest />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/our-gallery"
+            element={
+              <RequireAuth>
+                <OurGallery />
               </RequireAuth>
             }
           />
