@@ -1,0 +1,170 @@
+/* ==========================================================
+   OUR ASSETS — Directory Page
+   ========================================================== */
+
+/* Page wrapper */
+.page.assets-page {
+  display: block;
+  max-width: 1100px;
+  margin: 8vh auto 5vh;
+  padding: 0 22px 60px;
+}
+
+/* ----------------------------------------------------------
+   Main Card
+   ---------------------------------------------------------- */
+
+.assets-card {
+  padding: 28px 30px;
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--glow-soft);
+}
+
+.assets-card h1 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: 0.5px;
+}
+
+.assets-card .subtitle {
+  margin-top: 8px;
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+/* ----------------------------------------------------------
+   Search Bar
+   ---------------------------------------------------------- */
+
+.assets-search {
+  display: flex;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.assets-search .input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--glass-border);
+
+  font: inherit;
+  color: var(--text);
+  background: #11151d;
+}
+
+.assets-search .btn.sm {
+  padding: 8px 14px;
+  border-radius: 12px;
+}
+
+/* ----------------------------------------------------------
+   Meta text
+   ---------------------------------------------------------- */
+
+.assets-meta {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* ----------------------------------------------------------
+   Assets List & Cards
+   ---------------------------------------------------------- */
+
+.assets-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-top: 26px;
+}
+
+@media (min-width: 720px) {
+  .assets-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.asset-item {
+  padding: 20px 22px;
+  border-radius: 18px;
+  border: 1px solid var(--glass-border);
+
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.asset-item:hover {
+  background: rgba(255, 255, 255, 0.09);
+  transform: translateY(-2px);
+}
+
+/* Card header (title + tag) */
+.asset-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.asset-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+/* ----------------------------------------------------------
+   Tag badge
+   ---------------------------------------------------------- */
+
+.asset-tag {
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+
+  font-size: 0.75rem;
+  white-space: nowrap;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ----------------------------------------------------------
+   Note text
+   ---------------------------------------------------------- */
+
+.asset-note {
+  margin: 10px 0 14px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* ----------------------------------------------------------
+   Open Link button
+   ---------------------------------------------------------- */
+
+.asset-item .btn.pill {
+  width: fit-content;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+}
+
+/* ----------------------------------------------------------
+   Empty state
+   ---------------------------------------------------------- */
+
+.empty-state {
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px dashed var(--glass-border);
+
+  text-align: center;
+  color: var(--muted);
+}

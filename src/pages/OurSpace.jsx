@@ -25,6 +25,7 @@ export default function OurSpace() {
           <li>We both could get jealous easily</li>
           <li>We both love music, including learning the instruments.</li>
           <li>We both love to be invested in our own time when interested on something</li>
+          <li>Kita sama sama gak suka nonton sinetron</li>
         </ul>
       </section>
 
