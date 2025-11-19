@@ -8,6 +8,7 @@ export default function OurSpace() {
       <section className="card stretch">
         <h3 className="card-title">About Ocin</h3>
         <ul className="bullets">
+          <li>Yos pingin Salma kasih constant reassurance ke Yos agar Yos tidak overthinking atau anxious</li>
           <li>Likes to play games with genre of shooting, sci-fi, or actions</li>
           <li>Suka banget dipanggil "Ocin" sama Salma</li>
           <li>Sejujurnya.. Sering overthinking</li>
@@ -42,6 +43,7 @@ export default function OurSpace() {
           <li>Salma has wavy hair from genetics and it looks like a crown for a queen</li>
           <li>Salma has thin pretty beautiful lips. Confidently the only pair of lip that Ocin would kiss :D</li>
           <li>The skin on her face is so soft, Ocin would rest his face to hers like a purring cat</li>
+          <li>Salma pingin space dan freedom dari Yos</li>
         </ul>
       </section>
     </div>

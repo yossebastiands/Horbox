@@ -24,6 +24,7 @@ export default function FirstAid() {
           <li>Mengakui bahwa kamu cemburu adalah tindakan yang sangat dibanggakan meskipun berat untuk diungkapkan</li>
           <li>Untuk meminimalisir kecemburuan yang tidak perlu, lebih baik untuk inisiatif mengabari dia jika ada hal-hal yang dapat menyebabkan kecemburuan</li>
           <li>Salma often needs her comfort zone where she is alone at home and busy with her own activities</li>
+          <li>Ocin butuh constant reassurance dari Salma agar Ocin tidak anxious atau overthinking, biasanya as simple as ngabarin tentang aktivitas. On the other hand, Salma juga butuh freedom dan space dia agar tidak terkekang</li>
         </p>
       </section>
     </div>
