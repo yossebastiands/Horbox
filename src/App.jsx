@@ -35,9 +35,11 @@ function useUnlocked() {
    Guard: Redirect to login if locked
 --------------------------------*/
 function RequireAuth({ children }) {
-  return sessionStorage.getItem("horbox_unlocked") === "1"
-    ? children
-    : <Navigate to="/" replace />;
+  return sessionStorage.getItem("horbox_unlocked") === "1" ? (
+    children
+  ) : (
+    <Navigate to="/" replace />
+  );
 }
 
 /* -------------------------------
@@ -47,6 +49,16 @@ export default function App() {
   const unlocked = useUnlocked();
   const navigate = useNavigate();
   const [solid, setSolid] = useState(false);
+
+  // Lite mode: true = static BG01.jpg, false = MP4 video
+  const [lite, setLite] = useState(
+    () => localStorage.getItem("horbox_lite") === "1"
+  );
+
+  // Persist lite mode
+  useEffect(() => {
+    localStorage.setItem("horbox_lite", lite ? "1" : "0");
+  }, [lite]);
 
   // Detect scroll to toggle .solid class
   useEffect(() => {
@@ -58,7 +70,8 @@ export default function App() {
 
   return (
     <>
-      <BackgroundVideo />
+      {/* Background reacts to lite mode */}
+      <BackgroundVideo lite={lite} />
 
       {/* ---------------- NAVBAR ---------------- */}
       {unlocked && (
@@ -84,6 +97,17 @@ export default function App() {
             <Link to="/our-gallery" className="btn soft">
               Our Gallery
             </Link>
+
+            {/* LITE MODE TOGGLE */}
+            <button
+              type="button"
+              className={`btn soft pill lite-toggle ${lite ? "active" : ""}`}
+              onClick={() => setLite((prev) => !prev)}
+              title={lite ? "Switch to full video mode" : "Switch to lite mode"}
+            >
+              {lite ? "Video On" : "Lite Mode"}
+            </button>
+
             <button
               className="btn pill"
               onClick={() => {

@@ -207,3 +207,20 @@ body {
     transition: none !important;
   }
 }
+
+/* Fullscreen static background for lite mode */
+.bg-static.bg-static-lite {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image: url("/BG01.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Optional: tiny visual hint when lite is on */
+.lite-toggle.active {
+  opacity: 0.9;
+  border-style: solid;
+}
