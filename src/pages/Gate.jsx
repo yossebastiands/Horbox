@@ -16,13 +16,15 @@ export default function Gate() {
     }
   }, [navigate]);
 
+  const [error, setError] = useState("");
+
   function unlock(e) {
     e.preventDefault();
+    setError("");
 
     // Safety check: if env variable missing
     if (!REAL_PASSWORD) {
-      alert("Configuration error: Password not set.");
-      console.error("VITE_GATE_PWD is missing!");
+      setError("Configuration error: Password not set. Please contact administrator.");
       return;
     }
 
@@ -32,7 +34,8 @@ export default function Gate() {
       window.dispatchEvent(new Event("horbox:auth-change"));
       navigate("/home", { replace: true });
     } else {
-      alert("Wrong password");
+      setError("Incorrect password. Please try again.");
+      setPwd("");
     }
   }
 
@@ -40,14 +43,28 @@ export default function Gate() {
     <div className="gate">
       <form className="card" onSubmit={unlock}>
         <h2>Welcome</h2>
+        {error && (
+          <div style={{ 
+            padding: "10px", 
+            marginBottom: "12px", 
+            background: "rgba(255, 100, 100, 0.2)", 
+            border: "1px solid rgba(255, 100, 100, 0.4)",
+            borderRadius: "8px",
+            color: "#ffcccc"
+          }}>
+            {error}
+          </div>
+        )}
         <input
           type="password"
           className="input"
           placeholder="Enter password"
           value={pwd}
           onChange={(e) => setPwd(e.target.value)}
+          aria-label="Password"
+          autoFocus
         />
-        <button className="btn" type="submit">Enter</button>
+        <button className="btn" type="submit" aria-label="Enter Horbox">Enter</button>
         <div className="hint">Private space for Ocin & Salma</div>
       </form>
     </div>

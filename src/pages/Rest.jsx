@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import QuickMessageBox from "../components/QuickMessageBox.jsx";
 
 export default function Rest() {
   const aRef = useRef(null);
@@ -100,9 +101,11 @@ export default function Rest() {
   };
 
   return (
-    <div className="page rest-page">
-      {/* Robust audio element */}
-      <audio
+    <>
+      <QuickMessageBox />
+      <div className="page rest-page">
+        {/* Robust audio element */}
+        <audio
         ref={aRef}
         preload="auto"
         playsInline
@@ -111,33 +114,58 @@ export default function Rest() {
         <source src="/audio/song.mp3" type="audio/mpeg" />
       </audio>
 
-      <div className="mini-player">
-        <button className="mp-btn" onClick={toggle} aria-label={playing ? "Pause" : "Play"}>
-          {playing ? "⏸" : "▶️"}
+      <div className="nature-player">
+        <div className="player-glow"></div>
+        
+        <button className="nature-play-btn" onClick={toggle} aria-label={playing ? "Pause" : "Play"}>
+          <div className="play-pulse" style={{ animationPlayState: playing ? 'running' : 'paused' }}></div>
+          <span className="play-icon">{playing ? "❚❚" : "▶"}</span>
         </button>
 
-        <div className="mp-meta">
-          <div className="mp-title">Rest — song.mp3</div>
-          <div className="mp-time">{fmt(time)} / {fmt(dur)}</div>
+        <div className="player-content">
+          <div className="track-info">
+            <div className="track-title">Our Resting Place</div>
+            <div className="track-artist">I love you, Salma</div>
+          </div>
 
-          <input
-            className="mp-seek"
-            type="range"
-            min="0"
-            max={dur || 0}
-            step="1"
-            value={Math.min(time, dur || 0)}
-            onChange={(e) => seek(Number(e.target.value))}
-            disabled={!ready}
-            aria-label="Seek"
-          />
-          {err && <div className="mp-err">{err}</div>}
+          <div className="progress-container">
+            <div className="time-display">{fmt(time)}</div>
+            <div className="progress-wrapper">
+              <input
+                className="nature-seek"
+                type="range"
+                min="0"
+                max={dur || 0}
+                step="1"
+                value={Math.min(time, dur || 0)}
+                onChange={(e) => seek(Number(e.target.value))}
+                disabled={!ready}
+                aria-label="Seek"
+                style={{
+                  background: `linear-gradient(to right, 
+                    rgba(201, 149, 120, 0.8) 0%, 
+                    rgba(201, 149, 120, 0.5) ${(time / (dur || 1)) * 100}%, 
+                    rgba(255, 255, 255, 0.15) ${(time / (dur || 1)) * 100}%, 
+                    rgba(255, 255, 255, 0.15) 100%)`
+                }}
+              />
+              <div className="progress-markers">
+                <span className="marker" style={{ left: '0%' }}>🌱</span>
+                <span className="marker" style={{ left: '50%' }}>🍃</span>
+                <span className="marker" style={{ left: '100%' }}>🌸</span>
+              </div>
+            </div>
+            <div className="time-display">{fmt(dur)}</div>
+          </div>
+
+          {err && <div className="player-message">{err}</div>}
         </div>
 
-        <div className="mp-right">
-          <label className="mp-vol">
-            <span>🔊</span>
+        <div className="player-controls">
+          <label className="volume-control">
+            <span className="control-icon" title="Volume">♫</span>
             <input
+              className="volume-slider"
               type="range"
               min="0" max="1" step="0.01"
               value={volume}
@@ -146,15 +174,16 @@ export default function Rest() {
             />
           </label>
           <button
-            className={`mp-loop ${loop ? "on" : ""}`}
+            className={`loop-btn ${loop ? "active" : ""}`}
             onClick={() => setLoop(v => !v)}
             aria-pressed={loop}
-            title="Loop"
+            title={loop ? "Loop enabled" : "Loop disabled"}
           >
-            🔁
+            <span className="loop-icon">∞</span>
           </button>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

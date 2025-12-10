@@ -1,10 +1,13 @@
 
 
 import "../styles/styles.css";
+import QuickMessageBox from "../components/QuickMessageBox.jsx";
 
-export default function OurSpace() {
+export default function AboutUs() {
   return (
-    <div className="grid-3">
+    <>
+      <QuickMessageBox />
+      <div className="grid-3">
       <section className="card stretch">
         <h3 className="card-title">About Ocin</h3>
         <ul className="bullets">
@@ -47,5 +50,6 @@ export default function OurSpace() {
         </ul>
       </section>
     </div>
+    </>
   );
 }

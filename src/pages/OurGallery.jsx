@@ -1,6 +1,7 @@
 // src/pages/OurGallery.jsx
 import { useEffect, useMemo, useState } from "react";
 import "../styles/ourgallery.css";
+import QuickMessageBox from "../components/QuickMessageBox.jsx";
 
 const IMAGES = [
   {
@@ -162,7 +163,9 @@ export default function OurGallery() {
   }, []);
 
   return (
-    <div className="gallery-page">
+    <>
+      <QuickMessageBox />
+      <div className="gallery-page">
       <section className="card gallery-card">
         <header className="gallery-header">
           <div>
@@ -211,10 +214,11 @@ export default function OurGallery() {
                   src={item.thumb}
                   alt={item.title}
                   loading="lazy"
+                  decoding="async"
                   className="gallery-thumb"
                 />
                 {item.kind === "video" && (
-                  <div className="gallery-badge-play">▶</div>
+                  <div className="gallery-badge-play" aria-label="Video">▶</div>
                 )}
               </div>
               <figcaption>
@@ -245,7 +249,13 @@ export default function OurGallery() {
 
       {/* Modal */}
       {active && (
-        <div className="gallery-modal" onClick={() => setActive(null)}>
+        <div 
+          className="gallery-modal" 
+          onClick={() => setActive(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+        >
           <div
             className="gallery-modal-inner"
             onClick={(e) => e.stopPropagation()}
@@ -254,6 +264,7 @@ export default function OurGallery() {
               type="button"
               className="gallery-close"
               onClick={() => setActive(null)}
+              aria-label="Close modal"
             >
               ×
             </button>
@@ -268,17 +279,19 @@ export default function OurGallery() {
                 playsInline
                 controls
                 preload="metadata"
+                aria-label={active.title}
               />
             ) : (
               <img
                 src={active.full}
                 alt={active.title}
                 className="gallery-full"
+                loading="eager"
               />
             )}
 
             <div className="gallery-modal-info">
-              <h2>{active.title}</h2>
+              <h2 id="modal-title">{active.title}</h2>
               {active.note && <p>{active.note}</p>}
               {active.date && (
                 <div className="gallery-date">
@@ -290,5 +303,6 @@ export default function OurGallery() {
         </div>
       )}
     </div>
+    </>
   );
 }

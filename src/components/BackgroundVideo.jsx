@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, memo } from "react";
 
-export default function BackgroundVideo({ lite = false }) {
+function BackgroundVideo({ lite = false }) {
   const ref = useRef(null);
 
   // Only attach video visibility handlers when NOT in lite mode
@@ -39,10 +39,13 @@ export default function BackgroundVideo({ lite = false }) {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         poster="/BG01.jpg"
+        aria-hidden="true"
       />
-      <div className="bg-overlay" />
+      <div className="bg-overlay" aria-hidden="true" />
     </>
   );
 }
+
+export default memo(BackgroundVideo);

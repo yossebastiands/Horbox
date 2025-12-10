@@ -1,16 +1,79 @@
-# React + Vite
+# Horbox 🎵
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A private, password-protected web application for Ocin & Salma to share memories, playlists, messages, and moments together.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Password Gate**: Secure access with environment-based authentication
+- **YouTube Playlist Manager**: Create playlists, add songs with messages, and play directly in the app
+- **Message Board**: Share sweet messages and thoughts in real-time
+- **Photo & Video Gallery**: Browse and view your shared memories with search and sorting
+- **Our Assets**: Directory of shared projects and links
+- **Rest Page**: Built-in music player with custom controls
+- **Lite Mode**: Toggle between video and static backgrounds for performance
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19** - Latest React with lazy loading and performance optimizations
+- **Vite 7** - Fast build tool with optimized chunk splitting
+- **Firebase Realtime Database** - Real-time data synchronization
+- **React Router 7** - Client-side routing with protected routes
+- **Custom CSS** - Glassmorphism design with smooth animations
 
-## Expanding the ESLint configuration
+## Performance Optimizations
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+✅ Lazy-loaded route components  
+✅ Code splitting with manual chunks for vendors  
+✅ React.memo for frequently rendered components  
+✅ useCallback for event handlers  
+✅ Error boundaries for graceful error handling  
+✅ Toast notifications for user feedback  
+✅ Optimized image loading with lazy/async attributes  
+✅ Reduced motion support for accessibility  
+
+## Setup
+
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Create `.env.local` file with your Firebase config:
+```env
+VITE_GATE_PWD=your-password
+VITE_FB_API_KEY=your-firebase-api-key
+VITE_FB_AUTH_DOMAIN=your-app.firebaseapp.com
+VITE_FB_PROJECT_ID=your-project-id
+VITE_FB_STORAGE_BUCKET=your-app.appspot.com
+VITE_FB_MESSAGING_SENDER_ID=123456789
+VITE_FB_APP_ID=your-app-id
+```
+
+3. Run development server:
+```bash
+npm run dev
+```
+
+4. Build for production:
+```bash
+npm run build
+```
+
+## Deployment
+
+Configured for Netlify with SPA routing. The `netlify.toml` handles redirects for client-side routing.
+
+## Project Structure
+
+```
+src/
+├── components/       # Reusable components (ErrorBoundary, Toast, BackgroundVideo)
+├── pages/           # Route pages
+├── styles/          # CSS modules and global styles
+├── firebase.js      # Firebase configuration
+└── App.jsx         # Main app with routing
+```
+
+---
+
+Made with ❤️ for Ocin & Salma

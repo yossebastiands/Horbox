@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
-import "../styles/ourassets.css"; // make sure the CSS file exists
+import "../styles/ourassets.css";
+import QuickMessageBox from "../components/QuickMessageBox.jsx";
 
 // Hardcoded list of links
 const ASSETS = [
@@ -30,7 +31,9 @@ export default function OurAssets() {
   }, [query]);
 
   return (
-    <div className="page assets-page">
+    <>
+      <QuickMessageBox />
+      <div className="page assets-page">
       <section className="assets-card">
         <h1>Our Assets</h1>
         <p className="subtitle">Our little directory of shared projects and memories.</p>
@@ -85,5 +88,6 @@ export default function OurAssets() {
         </div>
       </section>
     </div>
+    </>
   );
 }

@@ -535,6 +535,7 @@ export default function Home() {
   const [text, setText] = useState("");
   const [sending, setSending] = useState(false);
   const [messages, setMessages] = useState([]);
+  const [displayCount, setDisplayCount] = useState(20);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -550,7 +551,7 @@ export default function Home() {
       const q = query(
         rRef(rtdb, "messages"),
         orderByChild("createdAt"),
-        limitToLast(50)
+        limitToLast(100) // Load last 100, but display progressively
       );
       off = onValue(q, (snap) => {
         const val = snap.val() || {};
@@ -568,6 +569,30 @@ export default function Home() {
     })();
     return () => off && off();
   }, []);
+  
+  const formatDateTime = (date) => {
+    if (!date) return "just now";
+    const now = new Date();
+    const isToday = date.toDateString() === now.toDateString();
+    const isYesterday = new Date(now - 86400000).toDateString() === date.toDateString();
+    
+    if (isToday) {
+      return `Today, ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    } else if (isYesterday) {
+      return `Yesterday, ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    } else {
+      return date.toLocaleString([], { 
+        month: 'short', 
+        day: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      });
+    }
+  };
+  
+  const loadMore = () => {
+    setDisplayCount(prev => Math.min(prev + 20, messages.length));
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -589,6 +614,9 @@ export default function Home() {
       setSending(false);
     }
   }
+  
+  const visibleMessages = messages.slice(0, displayCount);
+  const hasMore = displayCount < messages.length;
 
   return (
     <div className="home">
@@ -596,7 +624,7 @@ export default function Home() {
         <PlaylistPanel />
 
         <section className="card stretch">
-          <h2 className="card-title">Message Board</h2>
+          <h2 className="card-title">Message Board ({messages.length})</h2>
 
           <form onSubmit={handleSubmit} className="composer-form">
             <label className="field">
@@ -634,13 +662,13 @@ export default function Home() {
           </form>
 
           <ul className="feed">
-            {messages.map((m) => (
+            {visibleMessages.map((m) => (
               <li key={m.id} className={`msg ${m.author.toLowerCase()}`}>
                 <header className="meta">
                   <span className="author">{m.author}</span>
                   <span className="dot">•</span>
                   <time className="time">
-                    {m.createdAt ? m.createdAt.toLocaleString() : "just now"}
+                    {formatDateTime(m.createdAt)}
                   </time>
                 </header>
                 <p className="text">{m.text}</p>
@@ -648,6 +676,17 @@ export default function Home() {
             ))}
             {messages.length === 0 && (
               <li className="empty card">No messages yet. Be the first!</li>
+            )}
+            {hasMore && (
+              <li className="feed-load-more">
+                <button
+                  className="btn soft"
+                  onClick={loadMore}
+                  type="button"
+                >
+                  Load {Math.min(20, messages.length - displayCount)} more messages
+                </button>
+              </li>
             )}
           </ul>
         </section>

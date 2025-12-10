@@ -1,13 +1,26 @@
 import { Routes, Route, Navigate, Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import Home from "./pages/Home.jsx";
-import OurSpace from "./pages/OurSpace.jsx";
-import FirstAid from "./pages/FirstAid.jsx";
-import Rest from "./pages/Rest.jsx";
-import Gate from "./pages/Gate.jsx";
-import OurAssets from "./pages/OurAssets.jsx"; // new page
-import OurGallery from "./pages/OurGallery.jsx";
+import { useEffect, useState, lazy, Suspense, useCallback } from "react";
+import { ErrorBoundary } from "./components/ErrorBoundary.jsx";
+import { ToastContainer } from "./components/Toast.jsx";
 import BackgroundVideo from "./components/BackgroundVideo.jsx";
+
+// Lazy load route components
+const Gate = lazy(() => import("./pages/Gate.jsx"));
+const Home = lazy(() => import("./pages/Home.jsx"));
+const OurSpace = lazy(() => import("./pages/OurSpace.jsx"));
+const FirstAid = lazy(() => import("./pages/FirstAid.jsx"));
+const Rest = lazy(() => import("./pages/Rest.jsx"));
+const OurAssets = lazy(() => import("./pages/OurAssets.jsx"));
+const OurGallery = lazy(() => import("./pages/OurGallery.jsx"));
+
+// Loading fallback component
+const PageLoader = () => (
+  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "60vh" }}>
+    <div className="card" style={{ textAlign: "center", padding: "2rem" }}>
+      <p className="muted">Loading...</p>
+    </div>
+  </div>
+);
 
 /* -------------------------------
    Track login/unlock state
@@ -68,8 +81,19 @@ export default function App() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const handleLogout = useCallback(() => {
+    sessionStorage.removeItem("horbox_unlocked");
+    window.dispatchEvent(new Event("horbox:auth-change"));
+    navigate("/", { replace: true });
+  }, [navigate]);
+
+  const toggleLiteMode = useCallback(() => {
+    setLite(prev => !prev);
+  }, []);
+
   return (
-    <>
+    <ErrorBoundary>
+      <ToastContainer />
       {/* Background reacts to lite mode */}
       <BackgroundVideo lite={lite} />
 
@@ -82,39 +106,38 @@ export default function App() {
             <Link to="/home" className="btn ghost">
               Home
             </Link>
-            <Link to="/our-space" className="btn">
-              Our Space
+            <Link to="/rest" className="btn">
+              Rest
             </Link>
             <Link to="/our-assets" className="btn soft">
               Our Assets
             </Link>
+            <Link to="/our-gallery" className="btn soft">
+              Our Gallery
+            </Link>
             <Link to="/first-aid" className="btn soft">
               First Aid
             </Link>
-            <Link to="/rest" className="btn">
-              Rest
-            </Link>
-            <Link to="/our-gallery" className="btn soft">
-              Our Gallery
+            <Link to="/our-space" className="btn">
+              About Us
             </Link>
 
             {/* LITE MODE TOGGLE */}
             <button
               type="button"
               className={`btn soft pill lite-toggle ${lite ? "active" : ""}`}
-              onClick={() => setLite((prev) => !prev)}
+              onClick={toggleLiteMode}
               title={lite ? "Switch to full video mode" : "Switch to lite mode"}
+              aria-pressed={lite}
+              aria-label={lite ? "Switch to video mode" : "Switch to lite mode"}
             >
               {lite ? "Video On" : "Lite Mode"}
             </button>
 
             <button
               className="btn pill"
-              onClick={() => {
-                sessionStorage.removeItem("horbox_unlocked");
-                window.dispatchEvent(new Event("horbox:auth-change"));
-                navigate("/", { replace: true });
-              }}
+              onClick={handleLogout}
+              aria-label="Logout"
             >
               Logout
             </button>
@@ -124,7 +147,8 @@ export default function App() {
 
       {/* ---------------- ROUTES ---------------- */}
       <main className="page">
-        <Routes>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
           {/* Login / Password Gate */}
           <Route path="/" element={<Gate />} />
 
@@ -187,7 +211,8 @@ export default function App() {
             path="*"
             element={<Navigate to={unlocked ? "/home" : "/"} replace />}
           />
-        </Routes>
+          </Routes>
+        </Suspense>
       </main>
 
       {/* ---------------- FOOTER ---------------- */}
@@ -196,6 +221,6 @@ export default function App() {
           © {new Date().getFullYear()} Horbox — with <span>❤️</span>
         </footer>
       )}
-    </>
+    </ErrorBoundary>
   );
 }

@@ -17,6 +17,14 @@
   .page.grid-2 { grid-template-columns: 1fr; }
 }
 
+@media (max-width: 640px) {
+  .page.grid-2 {
+    margin: 4vh auto;
+    padding: 0 12px 30px;
+    gap: 16px;
+  }
+}
+
 /* ---- Cards that should stretch tall ---- */
 .card.stretch {
   display: flex;
@@ -35,6 +43,22 @@
   row-gap: 12px;
   margin-top: 12px;
   flex: 0 0 auto;                    /* do not grow; feed will grow */
+}
+
+@media (max-width: 640px) {
+  .composer-form {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .composer-form .field {
+    display: grid;
+    gap: 6px;
+  }
+  
+  .composer-form .field > span {
+    text-align: left;
+  }
 }
 
 .composer-form .field { display: contents; }
@@ -81,7 +105,9 @@
   /* layout */
   flex: 1 1 auto;                    /* take remaining height of card */
   min-height: 0;                     /* allow scrolling inside */
-  overflow: auto;                    /* internal scroll */
+  max-height: clamp(400px, 50vh, 600px); /* limit height with internal scroll */
+  overflow-y: auto;                  /* vertical scroll only */
+  overflow-x: hidden;                /* no horizontal scroll */
   padding-right: 6px;
 
   /* visuals */
@@ -90,13 +116,27 @@
   flex-direction: column;
   gap: 12px;
   list-style: none;
+  scroll-behavior: smooth;
 }
 
 /* Scrollbar cosmetics */
 .feed::-webkit-scrollbar { width: 10px; }
+.feed::-webkit-scrollbar-track { 
+  background: rgba(255, 255, 255, 0.05); 
+  border-radius: 10px; 
+}
 .feed::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.18);
   border-radius: 10px;
+}
+.feed::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Firefox scrollbar */
+.feed {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.18) rgba(255, 255, 255, 0.05);
 }
 
 /* ===========================
@@ -148,4 +188,16 @@
   text-align: center;
   padding: 14px;
   border-radius: 12px;
+}
+
+/* Load more button */
+.feed-load-more {
+  list-style: none;
+  text-align: center;
+  padding: 8px 0;
+}
+
+.feed-load-more .btn {
+  width: 100%;
+  max-width: 300px;
 }

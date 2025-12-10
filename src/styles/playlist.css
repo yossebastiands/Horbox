@@ -72,6 +72,16 @@
   min-width: 0;
 }
 
+@media (max-width: 640px) {
+  .playlist-card {
+    padding: 12px;
+  }
+  
+  .playlist-main {
+    gap: 10px;
+  }
+}
+
 /* Show Add Song above player without changing JSX order */
 .add-song-panel { order: -1; }
 
