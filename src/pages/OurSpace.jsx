@@ -48,6 +48,8 @@ export default function AboutUs() {
           <li>Salma has thin pretty beautiful lips. Confidently the only pair of lip that Ocin would kiss :D</li>
           <li>The skin on her face is so soft, Ocin would rest his face to hers like a purring cat</li>
           <li>Salma pingin space dan freedom dari Yos</li>
+          <li>Salma likes the color yellow</li>
+          <li>Salma likes to create various outfit designs for her Roblox avatars</li>
         </ul>
       </section>
     </div>
