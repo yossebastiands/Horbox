@@ -18,6 +18,7 @@ export default function AboutUs() {
           <li>Suka dunia kendaraan terutama di Mobil dan Pesawat</li>
           <li>Suka mempelajari perkembangan teknologi</li>
           <li>Suka mempelajari cara alam semesta bekerja</li>
+          <li>Suka banget sama rasa lemon, markisa, mangga, dan stroberi. Pada dasarnya sebenarnya suka banget yang kecut kecut.</li>
         </ul>
       </section>
 
